@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.9)
+﻿cmake_minimum_required(VERSION 3.20)
 project (ChanlunX)
 set (ChanlunX_VERSION_MAJOR 1)
 set (ChanlunX_VERSION_MINOR 0)

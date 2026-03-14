@@ -2,27 +2,29 @@
 
 ## 如何编译
 
-### Visual Studio 2019
+### 编译 32 位版本
 
-通达信插件需要编译成32位，下面以Visual Studio 2019举例，作者用的是Visual Studio 2019社区版。
-
-```cmd
-mkdir build
-cd build
-cmake -G "Visual Studio 16 2019" -A Win32 ..
-cmake --build . --config Release
-```
-
-### Visual Studio 2015 或者 Visual Studio 2017
-
-在项目根目录下依次执行以下命令
+适用于通达信 32 位版本：
 
 ```cmd
 mkdir build
 cd build
-cmake ..
+cmake -A Win32 ..
 cmake --build . --config Release
 ```
+
+### 编译 64 位版本
+
+适用于通达信 64 位版本：
+
+```cmd
+mkdir build
+cd build
+cmake -A x64 ..
+cmake --build . --config Release
+```
+
+> **注意**: 请根据通达信软件的位数选择对应的 DLL 版本。32 位通达信需使用 32 位 DLL，64 位通达信需使用 64 位 DLL。
 
 ## 主图代码
 
@@ -56,9 +58,8 @@ NOTEXT_DDUANSE1:STICKLINE(DUANSE1,DUANZD1,DUANZG1,0,0),COLORFF8000;{画段中枢
 
 ## 交流
 
+- 支持作者：https://mp.weixin.qq.com/s/xKBIlmBp9iyYg7wpLc5bPw
 - 缠论X星球: https://t.zsxq.com/0aDUuhQC5
 - WeChat: kldcty
 - QQ: 1106628276
 - 微信公众号: mywildquant
-
-缠论X星球和QQ群福利: 有新版本下载。
