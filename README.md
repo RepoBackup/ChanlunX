@@ -1,34 +1,52 @@
-﻿# ChanlunX
+# ChanlunX
 
-## 如何编译
+通达信缠论分析插件 — 基于通达信 DLL 扩展机制，在主图上绘制笔、线段、中枢。
 
-### 编译 32 位版本
+## 前置条件
 
-适用于通达信 32 位版本：
+- CMake >= 3.20
+- MSVC（Visual Studio 2019+，需支持 C++17）
+- 通达信金融终端
+
+## 编译
 
 ```cmd
-mkdir build
-cd build
-cmake -A Win32 ..
+mkdir build && cd build
+cmake -A <ARCH> ..
 cmake --build . --config Release
 ```
 
-### 编译 64 位版本
+`<ARCH>` 按通达信位数选择：
 
-适用于通达信 64 位版本：
+| 通达信版本 | `<ARCH>` |
+|-----------|----------|
+| 32 位 | `Win32` |
+| 64 位 | `x64` |
 
-```cmd
-mkdir build
-cd build
-cmake -A x64 ..
-cmake --build . --config Release
-```
+> 编译产物为 `ChanlunX.dll`，需与通达信位数匹配。
 
-> **注意**: 请根据通达信软件的位数选择对应的 DLL 版本。32 位通达信需使用 32 位 DLL，64 位通达信需使用 64 位 DLL。
+## 安装
 
-## 主图代码
+1. 将 `ChanlunX.dll` 复制到通达信安装目录的 `T0002\dlls\`
+2. 在通达信中绑定该 DLL 为 **2 号插件函数**
 
-把编译好的DLL放到通达信的T0002\dlls目录，绑定为2号函数，下面的代码做成通达信主图公式。
+## DLL 函数一览
+
+| 编号 | 功能 | 调用签名 |
+|------|------|----------|
+| 1 | 简笔顶底端点 | `(1, H, L, 0)` |
+| 2 | 标准笔顶底端点 | `(2, H, L, 0)` |
+| 3 | 线段端点（标准画法） | `(3, FRAC, H, L)` |
+| 4 | 线段端点（1+1 终结画法） | `(4, FRAC, H, L)` |
+| 5 | 中枢高点 | `(5, FRAC, H, L)` |
+| 6 | 中枢低点 | `(6, FRAC, H, L)` |
+| 7 | 中枢起止信号（1=起点, 2=终点） | `(7, FRAC, H, L)` |
+| 8 | 中枢方向 | `(8, FRAC, H, L)` |
+| 9 | 同方向第 N 个中枢 | `(9, FRAC, H, L)` |
+
+## 主图公式
+
+新建通达信主图公式，粘贴以下代码：
 
 ```text
 FRAC:=TDXDLL2(2,H,L,0);{标准笔}
@@ -58,20 +76,25 @@ NOTEXT_DDUANSE1:STICKLINE(DUANSE1,DUANZD1,DUANZG1,0,0),COLORFF8000;{画段中枢
 
 ## 社区
 
-如果开源版不知道自己怎么动手搞定的，可以参与我的社区，我会协助你安装。
+如果你希望获得更快的上手体验，可以参考安装指南或加入社区交流。
 
 ### 安装指南
 
-- [番茄缠论插件 FqChan04 TDX 安装指南 20260405 更新](https://mp.weixin.qq.com/s/v3uchXfQLACdeEoV6CN65Q)
+- [番茄缠论插件 FqChan04 TDX 安装指南](https://mp.weixin.qq.com/s/v3uchXfQLACdeEoV6CN65Q)
 
-并且我也有全能的量化版本开发计划，可以一起研究冲浪。
+### 联系方式
 
-### 更多
-
-- 支持作者：https://mp.weixin.qq.com/s/xKBIlmBp9iyYg7wpLc5bPw
-- 给作者充电：http://s.a0c.top/lJ1c8WZ/4KHZ
-- 缠论X星球: https://t.zsxq.com/0aDUuhQC5
-- 纷传圈子：http://s.a0c.top/uHvyCEy/4KHZ
 - WeChat: kldcty
 - QQ: 1106628276
 - 微信公众号: kldctymp
+- 缠论X星球: https://t.zsxq.com/0aDUuhQC5
+- 纷传圈子：http://s.a0.top/uHvyCEy/4KHZ
+
+### 社区参与指南
+
+- [参与订阅](https://mp.weixin.qq.com/s/xKBIlmBp9iyYg7wpLc5bPw)
+- [充电助力](http://s.a0c.top/lJ1c8WZ/4KHZ)
+
+## License
+
+[MIT](LICENSE)
